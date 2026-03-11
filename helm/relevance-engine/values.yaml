@@ -1,0 +1,72 @@
+replicaCount: 2
+
+image:
+  repository: relevance-engine/backend
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8000
+
+ingress:
+  enabled: false
+  className: nginx
+  annotations: {}
+  hosts:
+    - host: relevance-engine.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
+
+postgresql:
+  enabled: true
+  auth:
+    database: relevance_engine
+    username: relevance_engine
+    existingSecret: relevance-engine-secrets
+    secretKeys:
+      adminPasswordKey: postgresql-password
+
+redis:
+  enabled: true
+
+backend:
+  secrets:
+    # IMPORTANT: Override these in your deployment values file — never use defaults in production
+    secretKey: change-this-secret
+    jwtSecretKey: change-this-jwt-secret
+
+serviceAccount:
+  create: true
+  name: ""
+  annotations: {}
+
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  fsGroup: 1000
+
+securityContext:
+  readOnlyRootFilesystem: true
+  allowPrivilegeEscalation: false
+
+env:
+  DEBUG: "false"
+  CORS_ORIGINS: '["https://relevance-engine.example.com"]'

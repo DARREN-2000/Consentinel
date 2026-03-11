@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "relevance-engine.fullname" . }}-config
+  labels:
+    {{- include "relevance-engine.labels" . | nindent 4 }}
+data:
+  {{- range $key, $value := .Values.env }}
+  {{ $key }}: {{ $value | quote }}
+  {{- end }}
+  REDIS_URL: "redis://{{ include "relevance-engine.fullname" . }}-redis-master:6379/0"
