@@ -23,7 +23,7 @@ class ExperimentResponse(BaseModel):
     description: str | None = None
     experiment_type: str
     journey_id: str | None = None
-    variants: list[dict] | dict
+    variants: list[dict]
     traffic_split: dict | None = None
     status: str
     start_date: datetime | None = None

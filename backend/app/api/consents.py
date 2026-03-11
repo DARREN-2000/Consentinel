@@ -24,13 +24,19 @@ consent_engine = ConsentEngine()
 def record_consent(
     payload: ConsentCreate, db: Session = Depends(get_db)
 ) -> Consent:
+    granted_at: datetime | None
+    if payload.status == "granted":
+        granted_at = payload.granted_at or datetime.now(timezone.utc)
+    else:
+        granted_at = payload.granted_at
+
     consent = Consent(
         user_id=payload.user_id,
         channel=payload.channel,
         status=payload.status,
         source=payload.source,
         region=payload.region,
-        granted_at=payload.granted_at or (datetime.now(timezone.utc) if payload.status == "granted" else None),
+        granted_at=granted_at,
         expires_at=payload.expires_at,
     )
     db.add(consent)

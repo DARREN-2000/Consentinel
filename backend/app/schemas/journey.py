@@ -23,7 +23,7 @@ class JourneyTemplateResponse(BaseModel):
     description: str | None = None
     goal: str | None = None
     audience_id: str | None = None
-    steps: list[dict] | dict
+    steps: list[dict]
     entry_conditions: dict | None = None
     exit_conditions: dict | None = None
     suppression_rules: dict | None = None

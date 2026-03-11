@@ -89,7 +89,7 @@ class ScoringEngine:
         completed = {
             e.event_name for e in events if e.event_name in _ACTIVATION_EVENTS
         }
-        if not _ACTIVATION_EVENTS:
+        if not completed:
             return 0.0
 
         return round(len(completed) / len(_ACTIVATION_EVENTS), 4)
