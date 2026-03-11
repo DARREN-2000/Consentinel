@@ -49,9 +49,10 @@ redis:
 
 backend:
   secrets:
-    # IMPORTANT: Override these in your deployment values file — never use defaults in production
-    secretKey: change-this-secret
-    jwtSecretKey: change-this-jwt-secret
+    # REQUIRED: You must set these via --set or a values override file.
+    # See docs/DEPLOYMENT.md for details.
+    secretKey: ""
+    jwtSecretKey: ""
 
 serviceAccount:
   create: true
