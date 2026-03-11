@@ -1,7 +1,7 @@
 """Tests for ConsentEngine with database fixtures."""
 
 import uuid
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 
 from app.engine.consent_engine import ConsentEngine
 from app.models.consent import Consent

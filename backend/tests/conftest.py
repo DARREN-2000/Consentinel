@@ -15,7 +15,6 @@ from app.main import app
 from app.models.user import User
 from app.models.consent import Consent
 from app.models.event import Event
-from app.models.decision import MessageDecision
 
 SQLALCHEMY_DATABASE_URL = "sqlite://"
 
