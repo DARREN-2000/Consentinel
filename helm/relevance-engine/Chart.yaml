@@ -1,0 +1,13 @@
+apiVersion: v2
+name: relevance-engine
+description: Consent-first, AI-powered next-best-action marketing automation platform
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+keywords:
+  - marketing-automation
+  - consent
+  - next-best-action
+  - ai
+maintainers:
+  - name: DARREN-2000

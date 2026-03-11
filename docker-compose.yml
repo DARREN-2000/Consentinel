@@ -1,0 +1,64 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-relevance_engine}
+      POSTGRES_USER: ${POSTGRES_USER:-relevance_engine}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-re_secret_2024}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-relevance_engine}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - relevance_engine_net
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - relevance_engine_net
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-relevance_engine}:${POSTGRES_PASSWORD:-re_secret_2024}@db:5432/${POSTGRES_DB:-relevance_engine}
+      REDIS_URL: redis://redis:6379/0
+      SECRET_KEY: ${SECRET_KEY:-change-this-secret-in-production}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-change-this-jwt-secret}
+      CORS_ORIGINS: ${CORS_ORIGINS:-["http://localhost:3000"]}
+      CONSENTHUB_API_URL: ${CONSENTHUB_API_URL:-}
+      CONSENTHUB_API_KEY: ${CONSENTHUB_API_KEY:-}
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    networks:
+      - relevance_engine_net
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  relevance_engine_net:
+    driver: bridge
