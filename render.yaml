@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: relevance-engine-demo
+    runtime: docker
+    plan: free
+    dockerContext: ./backend
+    dockerfilePath: ./backend/Dockerfile
+    healthCheckPath: /api/health
+    envVars:
+      - key: DATABASE_URL
+        value: sqlite:////tmp/relevance_engine.db
+      - key: SECRET_KEY
+        generateValue: true
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "false"
+      - key: CORS_ORIGINS
+        value: '["*"]'

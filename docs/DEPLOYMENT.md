@@ -1,5 +1,26 @@
 # 🚀 Deployment Guide — Relevance Engine
 
+## Free Demo Deployment (Render Blueprint)
+
+For the fastest no-cost demo deploy, use the included `render.yaml`.
+
+```bash
+# 1. Fork this repository
+# 2. In Render: New + -> Blueprint
+# 3. Select your fork (Render auto-detects render.yaml)
+```
+
+What this blueprint does:
+- Deploys the backend as a single Docker web service (`plan: free`)
+- Uses SQLite at `/tmp/relevance_engine.db` so no separate DB is needed
+- Generates secure `SECRET_KEY` and `JWT_SECRET_KEY` automatically
+
+After deploy:
+- Health check: `https://<your-service>.onrender.com/api/health`
+- Swagger UI: `https://<your-service>.onrender.com/docs`
+
+---
+
 ## Docker Compose Deployment
 
 ### Prerequisites
