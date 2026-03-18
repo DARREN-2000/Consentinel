@@ -12,12 +12,15 @@ For the fastest no-cost demo deploy, use the included `render.yaml`.
 
 What this blueprint does:
 - Deploys the backend as a single Docker web service (`plan: free`)
-- Uses SQLite at `/tmp/relevance_engine.db` so no separate DB is needed
+- Uses SQLite at `/tmp/relevance_engine.db` so no separate DB is needed (ephemeral)
 - Generates secure `SECRET_KEY` and `JWT_SECRET_KEY` automatically
+- Sets permissive CORS for fast demo setup
 
 After deploy:
 - Health check: `https://<your-service>.onrender.com/api/health`
 - Swagger UI: `https://<your-service>.onrender.com/docs`
+
+> ⚠️ Demo-only defaults: `/tmp` storage is non-persistent and CORS is wide open. For production environments, move to PostgreSQL and set `CORS_ORIGINS` to trusted domains only.
 
 ---
 

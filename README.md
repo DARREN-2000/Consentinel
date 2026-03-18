@@ -137,6 +137,8 @@ This repo includes a `render.yaml` so you can deploy a demo in a few clicks on R
    - `https://<your-service>.onrender.com/api/health`
    - `https://<your-service>.onrender.com/docs`
 
+> Demo notes: this setup uses SQLite in `/tmp` (ephemeral, non-persistent) and permissive CORS (`["*"]`). For production, use PostgreSQL and restrict CORS to your frontend domain.
+
 ---
 
 ## 💻 Local Development
