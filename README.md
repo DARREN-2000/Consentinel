@@ -150,6 +150,38 @@ See the full [Development Guide](docs/DEVELOPMENT.md).
 
 ---
 
+## 🌐 Web App (GitHub Pages)
+
+A minimal web UI is available in `web/` to interact with core API flows:
+- health check
+- create user
+- record consent
+- track event
+- request next-best-action
+
+### Run locally
+
+```bash
+cd web
+python -m http.server 8080
+# open http://localhost:8080
+```
+
+Set **API Base URL** in the UI to your backend endpoint (include `/api`), for example:
+- `http://localhost:8000/api` (local backend)
+- `https://api.relevance-engine.example.com/api` (deployed backend)
+
+### Deploy to GitHub Pages
+
+The workflow `.github/workflows/pages.yml` deploys `web/` to GitHub Pages on pushes to `main` that change web files.
+
+After enabling GitHub Pages in repository settings, the app is served from:
+`https://<owner>.github.io/Relevanace_Engine/`
+
+> Note: Your backend must allow the GitHub Pages origin in `CORS_ORIGINS`.
+
+---
+
 ## 📡 API Overview
 
 | Endpoint | Method | Description |

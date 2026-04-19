@@ -264,6 +264,33 @@ autoscaling:
 
 ---
 
+## GitHub Pages (Web App)
+
+This repository includes a static web app in `web/` for interacting with the backend API.
+
+### Enable and Deploy
+
+1. Ensure GitHub Pages is enabled for the repository (Settings → Pages).
+2. Keep `.github/workflows/pages.yml` enabled.
+3. Push changes to `main` under `web/**` (or run the workflow manually).
+
+The workflow uploads `web/` and deploys it to GitHub Pages.
+
+### Access URL
+
+The deployed app is available at:
+`https://<owner>.github.io/Relevanace_Engine/`
+
+### Backend CORS Requirement
+
+Set `CORS_ORIGINS` to include your GitHub Pages domain, for example:
+
+```env
+CORS_ORIGINS=["http://localhost:3000","https://<owner>.github.io"]
+```
+
+---
+
 ## CI/CD Pipeline
 
 ### Continuous Integration (`.github/workflows/ci.yml`)
