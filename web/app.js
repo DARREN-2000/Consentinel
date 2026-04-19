@@ -19,7 +19,9 @@ async function callApi(path, options = {}) {
     ...options,
   });
 
-  const payload = await response.json().catch(() => ({ detail: "No JSON response" }));
+  const payload = await response
+    .json()
+    .catch(() => ({ detail: "Response body is not valid JSON" }));
 
   if (!response.ok) {
     throw new Error(JSON.stringify(payload));
