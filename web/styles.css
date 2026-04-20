@@ -1,7 +1,12 @@
 :root {
+  color-scheme: light;
   font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
   color: #111827;
-  background: #f3f4f6;
+  background: linear-gradient(180deg, #eef2ff, #f9fafb);
+}
+
+* {
+  box-sizing: border-box;
 }
 
 body {
@@ -9,31 +14,73 @@ body {
 }
 
 .container {
-  max-width: 900px;
+  max-width: 1080px;
   margin: 0 auto;
   padding: 24px;
 }
 
-h1 {
-  margin-bottom: 0;
+.card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 16px;
+  margin-top: 16px;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.06);
 }
 
-.subtitle {
-  margin-top: 4px;
+.hero h1 {
+  margin: 0;
+}
+
+.hero p {
+  margin: 8px 0 0;
   color: #4b5563;
 }
 
-.card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 16px;
-  margin-top: 16px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.row {
+.meta {
   display: flex;
   gap: 8px;
+  margin-top: 12px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.badge.idle {
+  background: #e5e7eb;
+}
+
+.badge.loading {
+  background: #dbeafe;
+  color: #1e3a8a;
+}
+
+.badge.success {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.badge.error {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+h2 {
+  margin-top: 0;
 }
 
 form {
@@ -47,6 +94,21 @@ label {
   font-size: 14px;
 }
 
+small {
+  color: #4b5563;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.row-end {
+  justify-content: flex-end;
+  margin-bottom: 8px;
+}
+
 input,
 select,
 button {
@@ -56,12 +118,28 @@ button {
   border-radius: 8px;
 }
 
+input,
+select {
+  background: #fff;
+}
+
+input:focus,
+select:focus,
+button:focus {
+  outline: 3px solid #bfdbfe;
+  outline-offset: 1px;
+}
+
 button {
-  width: fit-content;
   cursor: pointer;
-  border: 0;
   background: #111827;
   color: #fff;
+  border: 0;
+}
+
+button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
 }
 
 pre {
@@ -72,5 +150,13 @@ pre {
   color: #d1fae5;
   border-radius: 8px;
   padding: 12px;
-  min-height: 100px;
+  min-height: 130px;
+  max-height: 420px;
+  overflow: auto;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 16px;
+  }
 }

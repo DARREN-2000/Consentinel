@@ -3,92 +3,121 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Relevance Engine Web App</title>
+    <title>Relevance Engine Control Center</title>
+    <meta
+      name="description"
+      content="Production-ready static control panel for Relevance Engine API operations."
+    />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <main class="container">
-      <h1>Relevance Engine Demo</h1>
-      <p class="subtitle">Consent-first next-best-action API playground</p>
+      <header class="hero card">
+        <h1>Relevance Engine Control Center</h1>
+        <p>
+          Consent-first API console for health checks, user setup, consent capture, event ingestion,
+          and next-best-action decisions.
+        </p>
+        <div class="meta">
+          <span id="statusBadge" class="badge idle">Idle</span>
+          <span id="latencyBadge" class="badge">—</span>
+        </div>
+      </header>
 
       <section class="card">
-        <h2>API Settings</h2>
-        <label for="apiBase">API Base URL</label>
+        <h2>API Configuration</h2>
+        <label for="apiBase">API Base URL (must end with <code>/api</code>)</label>
         <div class="row">
           <input id="apiBase" type="url" placeholder="http://localhost:8000/api" />
-          <button id="saveApiBase" type="button">Save</button>
+          <button id="saveApiBase" type="button">Save URL</button>
+          <button id="healthBtn" type="button">Health Check</button>
         </div>
-        <small>Set this to your deployed backend API (must include <code>/api</code>).</small>
+        <small>
+          Example: <code>https://api.relevance-engine.example.com/api</code>
+        </small>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <h2>Create User</h2>
+          <form id="userForm">
+            <label>Email <input name="email" type="email" required /></label>
+            <label>Name <input name="name" type="text" required /></label>
+            <label>
+              Lifecycle Stage
+              <select name="lifecycle_stage">
+                <option value="lead">lead</option>
+                <option value="trial" selected>trial</option>
+                <option value="active">active</option>
+                <option value="customer">customer</option>
+                <option value="churned">churned</option>
+              </select>
+            </label>
+            <button type="submit">Create User</button>
+          </form>
+        </article>
+
+        <article class="card">
+          <h2>Record Consent</h2>
+          <form id="consentForm">
+            <label>
+              User ID
+              <input name="user_id" type="text" data-user-id-input required />
+            </label>
+            <label>
+              Channel
+              <select name="channel">
+                <option value="email" selected>email</option>
+                <option value="sms">sms</option>
+                <option value="push">push</option>
+                <option value="ads">ads</option>
+              </select>
+            </label>
+            <label>
+              Status
+              <select name="status">
+                <option value="granted" selected>granted</option>
+                <option value="denied">denied</option>
+                <option value="withdrawn">withdrawn</option>
+              </select>
+            </label>
+            <label>Source <input name="source" type="text" value="web-app" required /></label>
+            <button type="submit">Record Consent</button>
+          </form>
+        </article>
+
+        <article class="card">
+          <h2>Track Event</h2>
+          <form id="eventForm">
+            <label>
+              User ID
+              <input name="user_id" type="text" data-user-id-input required />
+            </label>
+            <label>Event Type <input name="event_type" type="text" value="track" required /></label>
+            <label>Event Name <input name="event_name" type="text" value="pricing_view" required /></label>
+            <button type="submit">Track Event</button>
+          </form>
+        </article>
+
+        <article class="card">
+          <h2>Next Best Action</h2>
+          <form id="nbaForm">
+            <label>
+              User ID
+              <input name="user_id" type="text" data-user-id-input required />
+            </label>
+            <button type="submit">Get Decision</button>
+          </form>
+        </article>
       </section>
 
       <section class="card">
-        <h2>Health Check</h2>
-        <button id="healthBtn" type="button">Check /health</button>
-      </section>
-
-      <section class="card">
-        <h2>Create User</h2>
-        <form id="userForm">
-          <label>Email <input name="email" type="email" required /></label>
-          <label>Name <input name="name" type="text" required /></label>
-          <label>Lifecycle Stage
-            <select name="lifecycle_stage">
-              <option value="lead">lead</option>
-              <option value="trial" selected>trial</option>
-              <option value="active">active</option>
-              <option value="customer">customer</option>
-              <option value="churned">churned</option>
-            </select>
-          </label>
-          <button type="submit">Create User</button>
-        </form>
-      </section>
-
-      <section class="card">
-        <h2>Record Consent</h2>
-        <form id="consentForm">
-          <label>User ID <input name="user_id" type="text" required /></label>
-          <label>Channel
-            <select name="channel">
-              <option value="email" selected>email</option>
-              <option value="sms">sms</option>
-              <option value="push">push</option>
-              <option value="ads">ads</option>
-            </select>
-          </label>
-          <label>Status
-            <select name="status">
-              <option value="granted" selected>granted</option>
-              <option value="denied">denied</option>
-              <option value="withdrawn">withdrawn</option>
-            </select>
-          </label>
-          <label>Source <input name="source" type="text" value="web-app" required /></label>
-          <button type="submit">Record Consent</button>
-        </form>
-      </section>
-
-      <section class="card">
-        <h2>Track Event</h2>
-        <form id="eventForm">
-          <label>User ID <input name="user_id" type="text" required /></label>
-          <label>Event Type <input name="event_type" type="text" value="track" required /></label>
-          <label>Event Name <input name="event_name" type="text" value="pricing_view" required /></label>
-          <button type="submit">Track Event</button>
-        </form>
-      </section>
-
-      <section class="card">
-        <h2>Next Best Action</h2>
-        <form id="nbaForm">
-          <label>User ID <input name="user_id" type="text" required /></label>
-          <button type="submit">Get Decision</button>
-        </form>
-      </section>
-
-      <section class="card">
-        <h2>Response</h2>
-        <pre id="output">Ready.</pre>
+        <h2>Response Console</h2>
+        <div class="row row-end">
+          <button id="copyOutput" type="button">Copy</button>
+          <button id="clearOutput" type="button">Clear</button>
+        </div>
+        <pre id="output" aria-live="polite">Ready.</pre>
       </section>
     </main>
 

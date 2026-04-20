@@ -26,6 +26,18 @@ def test_create_user_with_email(client):
     assert resp.json()["email"] == "carol@example.com"
 
 
+def test_create_user_with_duplicate_email_returns_conflict(client):
+    payload = {"email": "duplicate@example.com", "name": "First"}
+    first = client.post("/api/users", json=payload)
+    assert first.status_code == 201
+
+    second = client.post(
+        "/api/users", json={"email": "duplicate@example.com", "name": "Second"}
+    )
+    assert second.status_code == 409
+    assert second.json()["detail"] == "User with this email already exists"
+
+
 def test_get_user(client):
     create = client.post("/api/users", json={"name": "Dave"})
     user_id = create.json()["id"]

@@ -281,6 +281,11 @@ The workflow uploads `web/` and deploys it to GitHub Pages.
 The deployed app is available at:
 `https://<owner>.github.io/Relevanace_Engine/`
 
+### Included Media Assets
+
+- Screenshots: `docs/assets/screenshots/`
+- Short demo GIFs: `docs/assets/demos/`
+
 ### Backend CORS Requirement
 
 Set `CORS_ORIGINS` to include your GitHub Pages domain, for example:
@@ -288,6 +293,13 @@ Set `CORS_ORIGINS` to include your GitHub Pages domain, for example:
 ```env
 CORS_ORIGINS=["http://localhost:3000","https://<owner>.github.io"]
 ```
+
+### Production Hardening Notes for Hosted Web UI
+
+- Use HTTPS-only backend endpoints in the web app (`https://.../api`).
+- Restrict `CORS_ORIGINS` to explicit trusted domains (avoid wildcard origins).
+- Keep `DEBUG=false` in production.
+- Rotate and securely store all secrets (`POSTGRES_PASSWORD`, `SECRET_KEY`, `JWT_SECRET_KEY`).
 
 ---
 

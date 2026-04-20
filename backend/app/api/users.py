@@ -1,6 +1,7 @@
 """User CRUD endpoints."""
 
 from fastapi import APIRouter, Depends, HTTPException, Query
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.database import get_db
@@ -33,7 +34,20 @@ def create_user(payload: UserCreate, db: Session = Depends(get_db)) -> User:
         metadata_=payload.metadata_,
     )
     db.add(user)
-    db.commit()
+    try:
+        db.commit()
+    except IntegrityError as exc:
+        db.rollback()
+        error_message = str(exc.orig).lower()
+        if "users.email" in error_message:
+            raise HTTPException(
+                status_code=409, detail="User with this email already exists"
+            ) from exc
+        if "users.external_id" in error_message:
+            raise HTTPException(
+                status_code=409, detail="User with this external_id already exists"
+            ) from exc
+        raise HTTPException(status_code=409, detail="User already exists") from exc
     db.refresh(user)
     return user
 
@@ -71,7 +85,20 @@ def update_user(
     update_data = payload.model_dump(exclude_unset=True)
     for field, value in update_data.items():
         setattr(user, field, value)
-    db.commit()
+    try:
+        db.commit()
+    except IntegrityError as exc:
+        db.rollback()
+        error_message = str(exc.orig).lower()
+        if "users.email" in error_message:
+            raise HTTPException(
+                status_code=409, detail="User with this email already exists"
+            ) from exc
+        if "users.external_id" in error_message:
+            raise HTTPException(
+                status_code=409, detail="User with this external_id already exists"
+            ) from exc
+        raise HTTPException(status_code=409, detail="User already exists") from exc
     db.refresh(user)
     return user
 

@@ -13,7 +13,7 @@
 </p>
 
 <!-- Badges -->
-![CI](https://github.com/DARREN-2000/Relevnace_Engine/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/DARREN-2000/Relevanace_Engine/actions/workflows/ci.yml/badge.svg)
 ![Python](https://img.shields.io/badge/python-3.12-blue.svg)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688.svg)
 ![License](https://img.shields.io/badge/license-Apache%202.0-green.svg)
@@ -42,6 +42,23 @@ Relevance Engine is an intelligent marketing automation platform that puts **use
 | 🤖 **AI Agents** | Pluggable agents for segmentation, copy, journeys, and governance |
 | 📈 **Analytics Dashboard** | Cohort analysis, funnels, attribution, and decision metrics |
 | 🔗 **ConsentHub Integration** | Companion to [B2B_Consent_Personalization](https://github.com/DARREN-2000/B2B_Consent_Personalization) |
+
+---
+
+## ✅ Production Readiness Gaps & Improvements
+
+The following key gaps have been addressed for production-quality usability and delivery:
+
+- **Operational UX gap** → Added a hardened control-center web app with:
+  - API URL validation (`/api` enforced)
+  - Request lifecycle status badges (idle/loading/success/error)
+  - Request latency indicator
+  - Timeout handling (15s)
+  - Output copy/clear actions
+  - Stored API base URL and last user ID for faster repeated workflows
+- **Delivery gap** → Added a dedicated GitHub Pages deployment workflow (`.github/workflows/pages.yml`) for automated static hosting.
+- **Documentation gap** → Expanded web app documentation with screenshots, demo media, CORS guidance, and run instructions.
+- **Validation gap** → Kept backend quality checks in place (`ruff` + `pytest`) to ensure web-facing changes do not regress API behavior.
 
 ---
 
@@ -89,8 +106,8 @@ For the complete architecture, see [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ```bash
 # Clone
-git clone https://github.com/DARREN-2000/Relevnace_Engine.git
-cd Relevnace_Engine
+git clone https://github.com/DARREN-2000/Relevanace_Engine.git
+cd Relevanace_Engine
 
 # Configure
 cp .env.example .env
@@ -152,12 +169,14 @@ See the full [Development Guide](docs/DEVELOPMENT.md).
 
 ## 🌐 Web App (GitHub Pages)
 
-A minimal web UI is available in `web/` to interact with core API flows:
-- health check
+A production-grade static web UI is available in `web/` to interact with core API flows:
+- health checks with request status and latency
 - create user
 - record consent
 - track event
 - request next-best-action
+- response console utilities (copy/clear)
+- persistent API URL + last user ID helpers
 
 ### Run locally
 
@@ -171,6 +190,30 @@ Set **API Base URL** in the UI to your backend endpoint (include `/api`), for ex
 - `http://localhost:8000/api` (local backend)
 - `https://api.relevance-engine.example.com/api` (deployed backend)
 
+### Screenshots
+
+**Desktop overview**
+
+![Web app overview](docs/assets/screenshots/webapp-overview.png)
+
+**End-to-end flow result**
+
+![Web app flow result](docs/assets/screenshots/webapp-flow-result.png)
+
+**Mobile layout**
+
+![Web app mobile layout](docs/assets/screenshots/webapp-mobile.png)
+
+### Short demo videos (GIF)
+
+**End-to-end demo**
+
+![End-to-end demo](docs/assets/demos/webapp-end-to-end-demo.gif)
+
+**Responsive demo**
+
+![Responsive demo](docs/assets/demos/webapp-responsive-demo.gif)
+
 ### Deploy to GitHub Pages
 
 The workflow `.github/workflows/pages.yml` deploys `web/` to GitHub Pages on pushes to `main` that change web files.
@@ -178,7 +221,17 @@ The workflow `.github/workflows/pages.yml` deploys `web/` to GitHub Pages on pus
 After enabling GitHub Pages in repository settings, the app is served from:
 `https://<owner>.github.io/Relevanace_Engine/`
 
-> Note: Your backend must allow the GitHub Pages origin in `CORS_ORIGINS`.
+> Note: Your backend must allow the GitHub Pages origin in `CORS_ORIGINS`, e.g. `https://<owner>.github.io`.
+
+### Troubleshooting (Web App)
+
+- **`Request failed: Failed to fetch`**
+  - Ensure backend is reachable from the browser.
+  - Check `CORS_ORIGINS` includes your web app origin.
+- **`API base URL must end with /api`**
+  - Use endpoint root including API prefix, e.g. `https://api.example.com/api`.
+- **Slow or failed requests**
+  - The UI has a 15-second timeout; check backend logs and network connectivity.
 
 ---
 
@@ -214,7 +267,7 @@ Full API documentation: [docs/API.md](docs/API.md)
 ## 📁 Project Structure
 
 ```
-Relevnace_Engine/
+Relevanace_Engine/
 ├── backend/
 │   ├── app/
 │   │   ├── main.py              # FastAPI application
