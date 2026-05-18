@@ -126,6 +126,19 @@ curl -X POST http://localhost:8000/api/decisions/next-best-action \
   -d '{"user_id": "<USER_ID>"}'
 ```
 
+### Free Demo Deployment (Render)
+
+This repo includes a `render.yaml` so you can deploy a demo in a few clicks on Render's free plan.
+
+1. Fork this repository
+2. In Render, choose **New +** → **Blueprint**
+3. Select your fork and apply the detected `render.yaml`
+4. Wait for deploy, then open:
+   - `https://<your-service>.onrender.com/api/health`
+   - `https://<your-service>.onrender.com/docs`
+
+> Demo notes: this setup uses SQLite in `/tmp` (ephemeral, non-persistent) and permissive CORS (`["*"]`). For production, use PostgreSQL and restrict CORS to your frontend domain.
+
 ---
 
 ## 💻 Local Development
