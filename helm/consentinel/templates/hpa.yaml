@@ -2,14 +2,14 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "relevance-engine.fullname" . }}
+  name: {{ include "consentinel.fullname" . }}
   labels:
-    {{- include "relevance-engine.labels" . | nindent 4 }}
+    {{- include "consentinel.labels" . | nindent 4 }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ include "relevance-engine.fullname" . }}
+    name: {{ include "consentinel.fullname" . }}
   minReplicas: {{ .Values.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.autoscaling.maxReplicas }}
   metrics:

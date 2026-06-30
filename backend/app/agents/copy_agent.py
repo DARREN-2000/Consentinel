@@ -1,11 +1,17 @@
-"""Copy / message generation agent (AI placeholder)."""
-
+"""Copy / message generation agent."""
+import os
+import json
+from openai import OpenAI
 
 class CopyAgent:
-    """Generates message copy variants for campaigns.
+    """Generates message copy variants for campaigns."""
 
-    This is a placeholder for real LLM-based copy generation.
-    """
+    def __init__(self):
+        self.api_key = os.environ.get("OPENAI_API_KEY")
+        self.base_url = os.environ.get("OPENAI_BASE_URL")
+        self.client = None
+        if self.api_key:
+            self.client = OpenAI(api_key=self.api_key, base_url=self.base_url)
 
     def generate_copy(
         self,
@@ -13,7 +19,24 @@ class CopyAgent:
         tone: str = "professional",
         objective: str = "educate",
     ) -> dict:
-        """Return mock message variants for the given context."""
+        """Return generated message variants for the given context."""
+        if self.client:
+            prompt = (
+                f"Context: {json.dumps(context)}\n"
+                f"Tone: {tone}\n"
+                f"Objective: {objective}\n\n"
+                "Generate 2 copy variants. Output as JSON with keys 'channel', 'tone', 'objective', 'variants'. "
+                "'variants' should be a list of objects with 'variant_id' (A, B), 'subject', 'body', 'cta'."
+            )
+            response = self.client.chat.completions.create(
+                model="gpt-3.5-turbo",
+                messages=[{"role": "user", "content": prompt}],
+                response_format={ "type": "json_object" }
+            )
+            try:
+                return json.loads(response.choices[0].message.content)
+            except Exception:
+                pass # fallback
         channel = context.get("channel", "email")
         product = context.get("product", "our platform")
         user_name = context.get("user_name", "there")

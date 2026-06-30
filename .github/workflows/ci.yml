@@ -58,7 +58,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Build Docker image
-        run: docker build -t relevance-engine/backend:ci ./backend
+        run: docker build -t consentinel/backend:ci ./backend
 
   helm-lint:
     runs-on: ubuntu-latest
@@ -67,4 +67,4 @@ jobs:
       - name: Install Helm
         uses: azure/setup-helm@v4
       - name: Lint Helm chart
-        run: helm lint helm/relevance-engine
+        run: helm lint helm/consentinel

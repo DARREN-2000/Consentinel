@@ -1,4 +1,4 @@
-# 📡 API Reference — Relevance Engine
+# 📡 API Reference — Consentinel
 
 > **Base URL**: `http://localhost:8000/api`
 
@@ -21,7 +21,7 @@ Basic liveness check.
 ```json
 {
   "status": "healthy",
-  "service": "Relevance Engine",
+  "service": "Consentinel",
   "version": "1.0.0"
 }
 ```

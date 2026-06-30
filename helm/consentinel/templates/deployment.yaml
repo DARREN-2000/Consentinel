@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "relevance-engine.fullname" . }}
+  name: {{ include "consentinel.fullname" . }}
   labels:
-    {{- include "relevance-engine.labels" . | nindent 4 }}
+    {{- include "consentinel.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "relevance-engine.selectorLabels" . | nindent 6 }}
+      {{- include "consentinel.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "relevance-engine.selectorLabels" . | nindent 8 }}
+        {{- include "consentinel.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.podSecurityContext }}
       securityContext:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "relevance-engine.serviceAccountName" . }}
+      serviceAccountName: {{ include "consentinel.serviceAccountName" . }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
@@ -35,9 +35,9 @@ spec:
               protocol: TCP
           envFrom:
             - configMapRef:
-                name: {{ include "relevance-engine.fullname" . }}-config
+                name: {{ include "consentinel.fullname" . }}-config
             - secretRef:
-                name: {{ include "relevance-engine.fullname" . }}-secrets
+                name: {{ include "consentinel.fullname" . }}-secrets
           livenessProbe:
             httpGet:
               path: /api/health

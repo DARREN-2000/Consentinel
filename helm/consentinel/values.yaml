@@ -1,7 +1,7 @@
 replicaCount: 2
 
 image:
-  repository: relevance-engine/backend
+  repository: consentinel/backend
   tag: latest
   pullPolicy: IfNotPresent
 
@@ -14,7 +14,7 @@ ingress:
   className: nginx
   annotations: {}
   hosts:
-    - host: relevance-engine.local
+    - host: consentinel.local
       paths:
         - path: /
           pathType: Prefix
@@ -38,9 +38,9 @@ autoscaling:
 postgresql:
   enabled: true
   auth:
-    database: relevance_engine
-    username: relevance_engine
-    existingSecret: relevance-engine-secrets
+    database: consentinel
+    username: consentinel
+    existingSecret: consentinel-secrets
     secretKeys:
       adminPasswordKey: postgresql-password
 
@@ -70,4 +70,4 @@ securityContext:
 
 env:
   DEBUG: "false"
-  CORS_ORIGINS: '["https://relevance-engine.example.com"]'
+  CORS_ORIGINS: '["https://consentinel.example.com"]'

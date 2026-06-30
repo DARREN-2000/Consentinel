@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: relevance-engine-demo
+    name: consentinel-demo
     runtime: docker
     plan: free
     dockerContext: ./backend
@@ -9,7 +9,7 @@ services:
     envVars:
       - key: DATABASE_URL
         # Demo-only ephemeral storage. Data resets when the service restarts.
-        value: sqlite:////tmp/relevance_engine.db
+        value: sqlite:////tmp/consentinel.db
       - key: SECRET_KEY
         generateValue: true
       - key: JWT_SECRET_KEY

@@ -1,4 +1,4 @@
-# 🚀 Deployment Guide — Relevance Engine
+# 🚀 Deployment Guide — Consentinel
 
 ## Free Demo Deployment (Render Blueprint)
 
@@ -12,7 +12,7 @@ For the fastest no-cost demo deploy, use the included `render.yaml`.
 
 What this blueprint does:
 - Deploys the backend as a single Docker web service (`plan: free`)
-- Uses SQLite at `/tmp/relevance_engine.db` so no separate DB is needed (ephemeral)
+- Uses SQLite at `/tmp/consentinel.db` so no separate DB is needed (ephemeral)
 - Generates secure `SECRET_KEY` and `JWT_SECRET_KEY` automatically
 - Sets permissive CORS for fast demo setup
 
@@ -36,8 +36,8 @@ After deploy:
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/DARREN-2000/Relevnace_Engine.git
-cd Relevnace_Engine
+git clone https://github.com/DARREN-2000/Consentinel.git
+cd Consentinel
 
 # 2. Configure environment
 cp .env.example .env
@@ -101,26 +101,26 @@ make clean         # Stop and remove all data
 
 ```bash
 # 1. Add dependency charts (PostgreSQL, Redis)
-cd helm/relevance-engine
+cd helm/consentinel
 
 # 2. Create namespace
-kubectl create namespace relevance-engine
+kubectl create namespace consentinel
 
 # 3. Create secrets
-kubectl create secret generic relevance-engine-secrets \
-  --namespace relevance-engine \
+kubectl create secret generic consentinel-secrets \
+  --namespace consentinel \
   --from-literal=postgresql-password='your-db-password' \
   --from-literal=SECRET_KEY='your-secret-key' \
   --from-literal=JWT_SECRET_KEY='your-jwt-secret'
 
 # 4. Install the chart
-helm install relevance-engine ./helm/relevance-engine \
-  --namespace relevance-engine \
-  --values helm/relevance-engine/values.yaml
+helm install consentinel ./helm/consentinel \
+  --namespace consentinel \
+  --values helm/consentinel/values.yaml
 
 # 5. Verify
-kubectl get pods -n relevance-engine
-kubectl get svc -n relevance-engine
+kubectl get pods -n consentinel
+kubectl get svc -n consentinel
 ```
 
 ### Custom Values
@@ -131,7 +131,7 @@ Create a `values-production.yaml`:
 replicaCount: 3
 
 image:
-  repository: ghcr.io/darren-2000/relevnace_engine/backend
+  repository: ghcr.io/darren-2000/consentinel/backend
   tag: v1.0.0
 
 ingress:
@@ -140,14 +140,14 @@ ingress:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
   hosts:
-    - host: api.relevance-engine.example.com
+    - host: api.consentinel.example.com
       paths:
         - path: /
           pathType: Prefix
   tls:
-    - secretName: relevance-engine-tls
+    - secretName: consentinel-tls
       hosts:
-        - api.relevance-engine.example.com
+        - api.consentinel.example.com
 
 resources:
   limits:
@@ -165,23 +165,23 @@ autoscaling:
 ```
 
 ```bash
-helm install relevance-engine ./helm/relevance-engine \
-  --namespace relevance-engine \
+helm install consentinel ./helm/consentinel \
+  --namespace consentinel \
   --values values-production.yaml
 ```
 
 ### Upgrade
 
 ```bash
-helm upgrade relevance-engine ./helm/relevance-engine \
-  --namespace relevance-engine \
+helm upgrade consentinel ./helm/consentinel \
+  --namespace consentinel \
   --values values-production.yaml
 ```
 
 ### Rollback
 
 ```bash
-helm rollback relevance-engine 1 --namespace relevance-engine
+helm rollback consentinel 1 --namespace consentinel
 ```
 
 ---

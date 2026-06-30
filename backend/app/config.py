@@ -4,14 +4,14 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    """Relevance Engine application settings."""
+    """Consentinel application settings."""
 
-    APP_NAME: str = "Relevance Engine"
+    APP_NAME: str = "Consentinel"
     API_PREFIX: str = "/api"
     DEBUG: bool = False
 
     # Database
-    DATABASE_URL: str = "sqlite:///./relevance_engine.db"
+    DATABASE_URL: str = "sqlite:///./consentinel.db"
 
     # Redis
     REDIS_URL: str = "redis://localhost:6379/0"

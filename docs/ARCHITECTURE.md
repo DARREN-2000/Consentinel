@@ -1,8 +1,8 @@
-# 🏗️ Architecture — Relevance Engine
+# 🏗️ Architecture — Consentinel
 
 ## System Overview
 
-Relevance Engine is a **consent-first, AI-powered next-best-action (NBA) platform** for marketing automation. Unlike traditional marketing tools that blast messages to segments, Relevance Engine evaluates each user individually and decides:
+Consentinel is a **consent-first, AI-powered next-best-action (NBA) platform** for marketing automation. Unlike traditional marketing tools that blast messages to segments, Consentinel evaluates each user individually and decides:
 
 1. **Whether** to send anything at all
 2. **What** message/action to take
@@ -141,7 +141,7 @@ Experiment ── referenced by ──→ MessageDecisions
 
 ## Core Engine: Next-Best-Action Flow
 
-The NBA engine is the heart of Relevance Engine. For each user, it executes this decision tree:
+The NBA engine is the heart of Consentinel. For each user, it executes this decision tree:
 
 ```
                     ┌─────────────────┐
@@ -234,7 +234,7 @@ The platform supports these communication channels:
 
 ## Integration with ConsentHub (B2B_Consent_Personalization)
 
-Relevance Engine is designed to work alongside the **ConsentHub** project (`B2B_Consent_Personalization`). The integration provides:
+Consentinel is designed to work alongside the **ConsentHub** project (`B2B_Consent_Personalization`). The integration provides:
 
 1. **Consent Data Sync**: ConsentHub serves as the authoritative source for user consent preferences
 2. **Preference Management**: Channel preferences and quiet hours flow from ConsentHub
@@ -248,13 +248,13 @@ CONSENTHUB_API_URL=https://consenthub.example.com/api
 CONSENTHUB_API_KEY=your-api-key
 ```
 
-When configured, Relevance Engine will:
+When configured, Consentinel will:
 - Fetch consent data from ConsentHub before making decisions
 - Push decision audit events to ConsentHub
 - Respect ConsentHub's preference center configurations
 - Honor ConsentHub's suppression lists
 
-When not configured, Relevance Engine operates standalone using its own consent tables.
+When not configured, Consentinel operates standalone using its own consent tables.
 
 ---
 
