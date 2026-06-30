@@ -16,3 +16,4 @@ opentelemetry-sdk==1.25.0
 opentelemetry-instrumentation-fastapi==0.46b0
 prometheus-client==0.20.0
 openai==1.61.1
+setuptools<70.0
