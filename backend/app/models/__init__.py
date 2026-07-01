@@ -1,4 +1,4 @@
-"""ORM models for the Relevance Engine."""
+"""ORM models for the Consentinel."""
 
 from app.models.audience import Audience
 from app.models.audit import ApprovalRequest, AuditEvent

@@ -16,6 +16,8 @@ from app.schemas.decision import (
     DecisionResponse,
     ExplainabilityResponse,
 )
+from app.observability import DECISION_LATENCY, DECISION_COUNT
+import time
 
 router = APIRouter(prefix="/decisions", tags=["decisions"])
 
@@ -50,11 +52,17 @@ def _persist_decision(
 def next_best_action(
     payload: DecisionRequest, db: Session = Depends(get_db)
 ) -> MessageDecision:
+    start_time = time.time()
     user = db.query(User).filter(User.id == payload.user_id).first()
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     decision = nba_engine.decide(user, db)
-    return _persist_decision(user.id, decision, db)
+    record = _persist_decision(user.id, decision, db)
+
+    DECISION_LATENCY.observe(time.time() - start_time)
+    DECISION_COUNT.labels(suppressed=str(record.suppressed).lower(), channel=record.channel).inc()
+
+    return record
 
 
 @router.post("/next-best-action/batch", response_model=list[DecisionResponse])

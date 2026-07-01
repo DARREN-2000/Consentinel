@@ -1,4 +1,4 @@
-"""Relevance Engine — FastAPI application factory."""
+"""Consentinel — FastAPI application factory."""
 
 from contextlib import asynccontextmanager
 from collections.abc import AsyncIterator
@@ -20,6 +20,14 @@ from app.api import (
 )
 from app.config import settings
 from app.database import Base, engine
+
+from prometheus_client import make_asgi_app
+from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
+from opentelemetry import trace
+from opentelemetry.sdk.trace import TracerProvider
+
+# Setup OpenTelemetry tracer
+trace.set_tracer_provider(TracerProvider())
 
 
 @asynccontextmanager
@@ -49,6 +57,13 @@ def create_app() -> FastAPI:
         allow_methods=["*"],
         allow_headers=["*"],
     )
+
+    # Metrics
+    metrics_app = make_asgi_app()
+    application.mount("/metrics", metrics_app)
+
+    # Instrument FastAPI for tracing
+    FastAPIInstrumentor.instrument_app(application)
 
     # Routers
     prefix = settings.API_PREFIX

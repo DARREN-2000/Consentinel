@@ -1,8 +1,8 @@
-# AGENTS.md — Relevance Engine
+# AGENTS.md — Consentinel
 
 ## Project Overview
 
-Relevance Engine is a consent-first, AI-powered next-best-action marketing automation platform. It decides whether to send anything at all, then picks the best message, best channel, best time, and best experiment for each user.
+Consentinel is a consent-first, AI-powered next-best-action marketing automation platform. It decides whether to send anything at all, then picks the best message, best channel, best time, and best experiment for each user.
 
 ## Architecture
 

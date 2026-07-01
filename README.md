@@ -1,7 +1,10 @@
 <p align="center">
-  <h1 align="center">🎯 Relevance Engine</h1>
+  <h1 align="center">🎯 Consentinel</h1>
   <p align="center">
-    <strong>Consent-first, AI-powered next-best-action marketing automation platform</strong>
+    <strong>The sentinel for consent-first engagement.</strong>
+  </p>
+  <p align="center">
+    "The best marketing action is often no action."
   </p>
   <p align="center">
     <a href="#-quick-start">Quick Start</a> •
@@ -13,7 +16,7 @@
 </p>
 
 <!-- Badges -->
-![CI](https://github.com/DARREN-2000/Relevnace_Engine/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/DARREN-2000/Consentinel/actions/workflows/ci.yml/badge.svg)
 ![Python](https://img.shields.io/badge/python-3.12-blue.svg)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688.svg)
 ![License](https://img.shields.io/badge/license-Apache%202.0-green.svg)
@@ -22,9 +25,9 @@
 
 ---
 
-## 📌 What is Relevance Engine?
+## 📌 What is Consentinel?
 
-Relevance Engine is an intelligent marketing automation platform that puts **user consent at the center** of every decision. Instead of blasting messages to segments, it evaluates each user individually and decides: **should we reach out at all?** If yes — what to say, which channel, and when. If no — it stays silent. Because sometimes the best marketing action is no action.
+Consentinel is a consent-first next-best-action engine. It puts **user consent at the center** of every decision. Instead of blasting messages to segments, it evaluates each user individually and decides: **should we reach out at all?** If yes — what to say, which channel, and when. If no — it stays silent. Because sometimes the best marketing action is no action.
 
 ---
 
@@ -79,6 +82,24 @@ For the complete architecture, see [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ---
 
+## 🔗 Links
+- [Product Site (GitHub Pages)](https://darren-2000.github.io/Consentinel/)
+- [Live API Demo](https://consentinel.onrender.com/api/health)
+
+---
+
+## 🏆 Competitor Comparison
+
+| Feature | Consentinel | Braze | Customer.io | Iterable |
+|---------|-------------|-------|-------------|----------|
+| **Consent-First** | Native | Add-on | Add-on | Add-on |
+| **Suppression** | Built-in | Workaround | Workaround | Workaround |
+| **"Do Nothing" NBA**| Core Engine | Custom script | Custom script | Custom script |
+| **Self-Hostable** | Yes | No | No | No |
+| **Open Source** | Yes | No | No | No |
+
+---
+
 ## 🚀 Quick Start
 
 ### Prerequisites
@@ -89,8 +110,8 @@ For the complete architecture, see [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ```bash
 # Clone
-git clone https://github.com/DARREN-2000/Relevnace_Engine.git
-cd Relevnace_Engine
+git clone https://github.com/DARREN-2000/Consentinel.git
+cd Consentinel
 
 # Configure
 cp .env.example .env
@@ -195,7 +216,7 @@ Full API documentation: [docs/API.md](docs/API.md)
 ## 📁 Project Structure
 
 ```
-Relevnace_Engine/
+Consentinel/
 ├── backend/
 │   ├── app/
 │   │   ├── main.py              # FastAPI application
@@ -216,7 +237,7 @@ Relevnace_Engine/
 │   ├── Dockerfile
 │   └── requirements.txt
 ├── helm/                        # Kubernetes Helm chart
-│   └── relevance-engine/
+│   └── consentinel/
 ├── docs/                        # Documentation
 │   ├── API.md
 │   ├── ARCHITECTURE.md
@@ -236,7 +257,7 @@ Relevnace_Engine/
 
 ## 💡 Core Innovation: "Do Nothing" is a Valid Action
 
-Most marketing platforms assume every user should receive a message. Relevance Engine challenges that assumption.
+Most marketing platforms assume every user should receive a message. Consentinel challenges that assumption.
 
 The NBA engine can return `channel: "none"` and `action: "none"` — meaning the best thing to do for this user **right now** is nothing. This happens when:
 
@@ -256,9 +277,9 @@ This approach leads to:
 
 ## 🔗 Relationship to ConsentHub
 
-Relevance Engine is designed as the **action engine** companion to [B2B_Consent_Personalization](https://github.com/DARREN-2000/B2B_Consent_Personalization) (ConsentHub):
+Consentinel is designed as the **action engine** companion to [B2B_Consent_Personalization](https://github.com/DARREN-2000/B2B_Consent_Personalization) (ConsentHub):
 
-| | ConsentHub | Relevance Engine |
+| | ConsentHub | Consentinel |
 |---|---|---|
 | **Role** | Consent management & personalization | Decision & action execution |
 | **Decides** | What consent exists | What to do with that consent |
@@ -301,8 +322,8 @@ make clean             # Full cleanup
 
 ### Kubernetes / Helm
 ```bash
-helm install relevance-engine ./helm/relevance-engine \
-  --namespace relevance-engine \
+helm install consentinel ./helm/consentinel \
+  --namespace consentinel \
   --values values-production.yaml
 ```
 
@@ -344,6 +365,26 @@ See the full [Deployment Guide](docs/DEPLOYMENT.md).
 | **Containers** | Docker + Docker Compose |
 | **Orchestration** | Kubernetes + Helm |
 | **CI/CD** | GitHub Actions |
+| **Observability**| Prometheus, OpenTelemetry |
+| **Frontend**     | Vite, React, Recharts |
+| **Agents**       | OpenAI API |
+
+---
+
+## 🗺️ Roadmap
+
+| Feature | Status |
+|---------|--------|
+| FastAPI Backend | ✅ Implemented |
+| NBA Engine | ✅ Implemented |
+| Real DB Seed & Demo Data | ✅ Implemented |
+| OpenTelemetry & Prometheus | ✅ Implemented |
+| LLM-powered Copy & Segment Agents | ✅ Implemented |
+| Decision-Evaluation Harness | ✅ Implemented |
+| React/Vite Dashboard | ✅ Implemented |
+| GitHub Pages Site | ✅ Implemented |
+| LLM-powered Journey Agent | 🔜 Roadmap |
+| LLM-powered Governance Agent | 🔜 Roadmap |
 
 ---
 

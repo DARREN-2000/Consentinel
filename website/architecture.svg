@@ -1,0 +1,5 @@
+<svg width="400" height="200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="200" fill="#f0f0f0" />
+  <text x="200" y="100" font-family="sans-serif" font-size="20" text-anchor="middle">Consentinel Core Engine</text>
+  <text x="200" y="130" font-family="sans-serif" font-size="14" text-anchor="middle">Fatigue -> Consent -> Suppression -> NBA</text>
+</svg>

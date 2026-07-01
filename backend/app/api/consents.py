@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.engine.consent_engine import ConsentEngine
 from app.models.consent import ChannelPreference, Consent
+from app.models.user import User
 from app.schemas.consent import (
     ChannelPreferenceCreate,
     ChannelPreferenceResponse,
@@ -15,8 +16,17 @@ from app.schemas.consent import (
     ConsentResponse,
     ConsentSummary,
 )
+from app.observability import CONSENT_COVERAGE
 
 router = APIRouter(tags=["consents"])
+
+def _update_consent_coverage(db: Session):
+    total_users = db.query(User).count()
+    if total_users == 0:
+        return
+    # Count distinct users who have at least one granted consent
+    users_with_consent = db.query(Consent.user_id).filter(Consent.status == "granted").distinct().count()
+    CONSENT_COVERAGE.set(users_with_consent / total_users)
 consent_engine = ConsentEngine()
 
 
@@ -42,6 +52,8 @@ def record_consent(
     db.add(consent)
     db.commit()
     db.refresh(consent)
+
+    _update_consent_coverage(db)
     return consent
 
 
@@ -66,6 +78,8 @@ def withdraw_consent(
     consent.withdrawn_at = datetime.now(timezone.utc)
     db.commit()
     db.refresh(consent)
+
+    _update_consent_coverage(db)
     return consent
 
 

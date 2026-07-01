@@ -13,7 +13,7 @@ router = APIRouter(tags=["health"])
 def health_check() -> dict:
     return {
         "status": "healthy",
-        "service": "relevance-engine",
+        "service": "consentinel",
         "version": "1.0.0",
     }
 

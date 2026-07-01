@@ -1,4 +1,4 @@
-"""Shared test fixtures for the Relevance Engine test suite."""
+"""Shared test fixtures for the Consentinel test suite."""
 
 import uuid
 from datetime import datetime, timezone

@@ -1,4 +1,4 @@
-# 🛠️ Development Guide — Relevance Engine
+# 🛠️ Development Guide — Consentinel
 
 ## Prerequisites
 
@@ -17,8 +17,8 @@
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/DARREN-2000/Relevnace_Engine.git
-cd Relevnace_Engine
+git clone https://github.com/DARREN-2000/Consentinel.git
+cd Consentinel
 ```
 
 ### 2. Set up environment variables
@@ -105,7 +105,7 @@ make format
 ## Project Structure
 
 ```
-Relevnace_Engine/
+Consentinel/
 ├── backend/
 │   ├── app/
 │   │   ├── __init__.py

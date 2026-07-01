@@ -34,7 +34,13 @@ logs: ## Tail backend logs
 	docker compose logs -f backend
 
 db-shell: ## Open PostgreSQL shell
-	docker compose exec db psql -U relevance_engine -d relevance_engine
+	docker compose exec db psql -U consentinel -d consentinel
 
 redis-cli: ## Open Redis CLI
 	docker compose exec redis redis-cli
+
+seed: ## Seed the database with demo data
+	docker compose exec db python backend/scripts/seed.py
+
+eval: ## Run decision evaluation harness
+	cd backend && python eval/runner.py

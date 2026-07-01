@@ -1,14 +1,14 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "relevance-engine.name" -}}
+{{- define "consentinel.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Create a default fully qualified app name.
 */}}
-{{- define "relevance-engine.fullname" -}}
+{{- define "consentinel.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -24,16 +24,16 @@ Create a default fully qualified app name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "relevance-engine.chart" -}}
+{{- define "consentinel.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "relevance-engine.labels" -}}
-helm.sh/chart: {{ include "relevance-engine.chart" . }}
-{{ include "relevance-engine.selectorLabels" . }}
+{{- define "consentinel.labels" -}}
+helm.sh/chart: {{ include "consentinel.chart" . }}
+{{ include "consentinel.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -43,17 +43,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "relevance-engine.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "relevance-engine.name" . }}
+{{- define "consentinel.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "consentinel.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "relevance-engine.serviceAccountName" -}}
+{{- define "consentinel.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "relevance-engine.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "consentinel.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
