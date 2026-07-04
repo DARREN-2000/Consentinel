@@ -10,23 +10,13 @@ export const Dashboard = () => {
         axios.get('http://localhost:8000/api/analytics/summary')
             .then(res => setSummary(res.data))
             .catch(err => {
-                console.error("API failed, using mock data", err);
-                setSummary({
-                    total_users: 1250,
-                    total_decisions: 8400,
-                    suppression_rate: 0.34
-                });
+                console.error("API failed", err);
             });
 
         axios.get('http://localhost:8000/api/analytics/fatigue')
             .then(res => setFatigue(res.data))
             .catch(err => {
-                console.error("API failed, using mock data", err);
-                setFatigue([
-                    { bucket: "Low (0-30)", count: 450 },
-                    { bucket: "Medium (31-70)", count: 500 },
-                    { bucket: "High (71-100)", count: 300 }
-                ]);
+                console.error("API failed", err);
             });
     }, []);
 
@@ -44,7 +34,7 @@ export const Dashboard = () => {
                 </div>
                 <div style={{ border: '1px solid #ccc', padding: '20px' }}>
                     <h3>Suppression Rate</h3>
-                    <p>{(summary.suppression_rate * 100).toFixed(2)}%</p>
+                    <p>{summary.suppression_rate !== undefined ? (summary.suppression_rate * 100).toFixed(2) + "%" : ""}</p>
                 </div>
             </div>
 

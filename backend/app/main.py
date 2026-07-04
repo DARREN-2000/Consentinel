@@ -8,6 +8,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from app.api import (
+    copy,
+    governance,
     analytics,
     audiences,
     consents,
@@ -75,6 +77,8 @@ def create_app() -> FastAPI:
     application.include_router(audiences.router, prefix=prefix)
     application.include_router(journeys.router, prefix=prefix)
     application.include_router(experiments.router, prefix=prefix)
+    application.include_router(copy.router, prefix=prefix)
+    application.include_router(governance.router, prefix=prefix)
     application.include_router(analytics.router, prefix=prefix)
 
     # Global exception handler

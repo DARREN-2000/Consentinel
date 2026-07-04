@@ -383,8 +383,8 @@ See the full [Deployment Guide](docs/DEPLOYMENT.md).
 | Decision-Evaluation Harness | ✅ Implemented |
 | React/Vite Dashboard | ✅ Implemented |
 | GitHub Pages Site | ✅ Implemented |
-| LLM-powered Journey Agent | 🔜 Roadmap |
-| LLM-powered Governance Agent | 🔜 Roadmap |
+| LLM-powered Journey Agent | ✅ Implemented |
+| LLM-powered Governance Agent | ✅ Implemented |
 
 ---
 
