@@ -1,0 +1,35 @@
+graph TD
+    subgraph "Clients"
+        API[FastAPI Gateway]
+    end
+
+    subgraph "Decision Pipeline"
+        SE[Scoring Engine]
+        FE[Fatigue Engine]
+        CE[Consent Engine]
+        NBA[Next-Best-Action Engine]
+    end
+
+    subgraph "AI Agents"
+        Agent1[Segment Agent]
+        Agent2[Copy Agent]
+        Agent3[Journey Agent]
+        Agent4[Governance Agent]
+    end
+
+    subgraph "Storage & Cache"
+        PG[(PostgreSQL)]
+        Redis[(Redis Cache/Queue)]
+    end
+
+    API --> SE
+    API --> Agent1
+    SE --> FE
+    FE --> CE
+    CE --> NBA
+    NBA --> Agent4
+
+    SE -.-> PG
+    FE -.-> Redis
+    CE -.-> PG
+    NBA -.-> Redis
