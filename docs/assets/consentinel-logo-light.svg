@@ -1,0 +1,5 @@
+<svg width="200" height="50" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="50" fill="transparent"/>
+  <circle cx="25" cy="25" r="15" fill="#009688"/>
+  <text x="50" y="32" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#333">Consentinel</text>
+</svg>
